@@ -53,7 +53,10 @@ Default value: 'month'
 * showEventDetail    
 If set to true, when selecting the date in the month view, the events happened on that day will be shown below.    
 Default value: true
-* startingDayMonth    
+* sortEvents
+If set to true, events will be sorted by start time/all day value.
+Default value: true
+* startingDayMonth
 Control month view starting from which day.    
 Default value: 0
 * startingDayWeek    
@@ -101,7 +104,9 @@ The callback function triggered when a date is selected in the monthview
         <calendar ... time-selected="onTimeSelected(selectedTime)"></calendar>
         
         $scope.onTimeSelected = function (selectedTime) {
-            console.log(event.selectedTime);
+            console.log(event.selectedTime.date);
+             if (selectedTime.events)
+				console.log('Selected time events: ' + JSON.stringify(selectedTime.events));
         };
 
 * titleChanged    

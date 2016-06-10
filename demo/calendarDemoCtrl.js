@@ -73,7 +73,13 @@ angular.module('calendarDemoApp', ['ionic', 'ngAnimate', 'ui.rCalendar'])
         };
 
         $scope.onTimeSelected = function (selectedTime) {
-            console.log('Selected time: ' + selectedTime);
+            console.log('Selected time: ' + selectedTime.date);
+            if (selectedTime.events)
+                console.log('Selected time events: ' + JSON.stringify(selectedTime.events));
+        };
+
+        $scope.reloadSource = function (startTime, endTime) {
+            console.log('Range changed to ' + startTime + ' - ' + endTime);
         };
 
         function createRandomEvents() {

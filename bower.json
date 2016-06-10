@@ -1,9 +1,10 @@
 {
     "name": "ionic-calendar",
     "version": "0.2.7",
-    "homepage": "https://github.com/twinssbc/Ionic-Calendar",
+    "homepage": "https://github.com/fsicurezza/Ionic-Calendar",
     "authors": [
-        "twinssbc <bocong@hotmail.com>"
+        "twinssbc <bocong@hotmail.com>",
+        "fsicurezza <f.sicurezza@gmail.com>"
     ],
     "description": "A calendar directive for Ionic framework",
     "main": [

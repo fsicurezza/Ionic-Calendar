@@ -46,7 +46,7 @@
 
         <ion-content scroll="false" class="main-content">
             <calendar ng-model="calendar.currentDate" calendar-mode="calendar.mode" event-source="calendar.eventSource"
-                      range-changed="reloadSource(startTime, endTime)"
+                      range-changed="reloadSource(startTime, endTime)" query-mode="'remote'"
                       event-selected="onEventSelected(event)" title-changed="onViewTitleChanged(title)"
                       time-selected="onTimeSelected(selectedTime)" step="30"></calendar>
         </ion-content>

@@ -10,6 +10,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
         formatHourColumn: 'ha',
         calendarMode: 'month',
         showEventDetail: true,
+        sortEvents: true,
         startingDayMonth: 0,
         startingDayWeek: 0,
         allDayLabel: 'all day',
@@ -25,7 +26,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
 
         // Configuration attributes
         angular.forEach(['formatDay', 'formatDayHeader', 'formatDayTitle', 'formatWeekTitle', 'formatMonthTitle', 'formatWeekViewDayHeader', 'formatHourColumn',
-            'allDayLabel', 'noEventsLabel', 'showEventDetail', 'eventSource', 'queryMode', 'step', 'startingDayMonth', 'startingDayWeek'], function (key, index) {
+            'allDayLabel', 'noEventsLabel', 'showEventDetail', 'sortEvents', 'eventSource', 'queryMode', 'step', 'startingDayMonth', 'startingDayWeek'], function (key, index) {
             self[key] = angular.isDefined($attrs[key]) ? (index < 9 ? $interpolate($attrs[key])($scope.$parent) : $scope.$parent.$eval($attrs[key])) : calendarConfig[key];
         });
 
@@ -379,6 +380,9 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                     ngModelCtrl = ctrls[1];
                 scope.showEventDetail = ctrl.showEventDetail;
                 scope.formatDayHeader = ctrl.formatDayHeader;
+                // GS-MOD BEGIN: conditional events sorting
+                scope.sortEvents = ctrl.sortEvents;
+                // GS-MOD END: conditional events sorting
 
                 ctrl.mode = {
                     step: {months: 1}
@@ -482,7 +486,9 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                         }
 
                         if (scope.timeSelected) {
-                            scope.timeSelected({selectedTime: selectedDate});
+                            // GS-MOD BEGIN: passing the whole object with events
+                            scope.timeSelected({selectedTime: scope.selectedDate});
+                            // GS-MOD END: passing the whole object with events
                         }
                     }
                 };
@@ -625,11 +631,16 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                         }
                     }
 
-                    for (r = 0; r < 42; r += 1) {
-                        if (dates[r].hasEvent) {
-                            dates[r].events.sort(compareEvent);
+                    // GS-MOD BEGIN: conditional events sorting
+                    if (ctrl.sortEvents)
+                    {
+                        for (r = 0; r < 42; r += 1) {
+                            if (dates[r].hasEvent) {
+                                dates[r].events.sort(compareEvent);
+                            }
                         }
                     }
+                    // GS-MOD END: conditional events sorting
 
                     var findSelected = false;
                     for (r = 0; r < 42; r += 1) {
